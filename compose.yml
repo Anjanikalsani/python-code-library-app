@@ -1,0 +1,59 @@
+services:
+  db:
+    image: anjanidoc1234/python-3-tier-app:db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
+  auth_service:
+    image: anjanidoc1234/python-3-tier-app:auth
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5001:5001"
+    networks:
+      - mynetwork
+
+  book_service:
+    image: anjanidoc1234/python-3-tier-app:book
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5002:5002"
+    networks:
+      - mynetwork
+
+  borrow_service:
+    image: anjanidoc1234/python-3-tier-app:borrow
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5003:5003"
+    networks:
+      - mynetwork
+
+  frontend:
+    image: anjanidoc1234/python-3-tier-app:frontend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5000:5000"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: overlay
